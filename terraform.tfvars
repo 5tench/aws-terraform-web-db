@@ -1,13 +1,13 @@
-region             = "us-east-2"
-availability_zones = ["us-east-2a", "us-east-2b"]
+region             = "###-###-#"
+availability_zones = ["###-###-#", "###-###-#"]
 
 vpc_name = "terraform_vpc"
-vpc_cidr = "192.168.0.0/24"
+vpc_cidr = 
 
 igw_name      = "terraform-igw"
 subnet_name   = "terraform_subnet"
-subnet_cidr_1 = "192.168.0.0/25"
-subnet_cidr_2 = "192.168.0.128/25"
+subnet_cidr_1 =
+subnet_cidr_2 = 
 
 tfroute                        = "terraform-rt"
 tfroute_destination_cidr       = "0.0.0.0/0"
@@ -39,18 +39,18 @@ egress_rules = {
 }
 
 public_key_path = "~/.ssh/id_rsa.pub"
-key_pair_name   = "cloudninja4-key"
+key_pair_name   = ""
 
 # ===== RDS specific variables =====
 
-iam_user_name        = "terraform"
+iam_user_name        = 
 allocated_storage    = 20
-engine               = "mysql"
-engine_version       = "8.0"
+engine               = 
+engine_version       = 
 instance_class       = "db.t3.micro"
-db_name              = "mydatabase"
-username             = "admin"
-password             = "ChangeMe123!"
+db_name              = 
+username             = 
+password             = 
 parameter_group_name = null
 db_subnet_group_name = "my-db-subnet-group"
 # vpc_security_group_ids =  # Replace with your actual SG ID(s)# OR dynamically pass a newly created SG like I have
