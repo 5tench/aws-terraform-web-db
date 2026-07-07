@@ -1,0 +1,49 @@
+*.tfvars
+*.tfstate
+*.tfstate.backup
+.terraform/
+crash.log
+
+# Generated drift output
+drift_output/
+output/
+reports/
+sample-output/local/
+
+# AWS CLI / live-state exports
+aws_sg.json
+aws_sg_detail.json
+*_aws.json
+*_live_state.json
+
+# Secrets and mappings
+secret_values.json
+secrets.json
+*.secret.json
+matched_ips.txt
+unmatched_ips.txt
+*_cidrs_*.txt
+*_mappings.txt
+
+# Generated Terraform / review artifacts
+sg_generated.tf
+generated_*.tf
+*_generated.tf
+all_changes.txt
+drift_summary.json
+pr_summary.md
+
+# Local config and environment
+.env
+.env.*
+!.env.example
+*.local
+*.secret
+*.secrets
+*.pem
+*.key
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
