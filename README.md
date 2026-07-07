@@ -1,85 +1,109 @@
-The file you're thinking of is typically called `README.md` — the `.md` extension stands for **Markdown**, which is the standard format used on GitHub and most code repositories for project documentation.
+# Terraform Projects
 
----
+This repository is where I started learning Terraform with AWS.
 
-### ✅ Here's a basic example `README.md` for your Terraform project:
+It is not meant to represent a production platform. It is a learning archive that shows my progression from basic Terraform files into more organized, modular AWS infrastructure examples.
 
-```markdown
-# AWS Terraform Infrastructure Project
+The main value of this repo is the path it shows: starting with simple resource definitions, learning how AWS services connect, and then cleaning the work into stack folders that are easier to read and run.
 
-This project provisions a simple AWS infrastructure using Terraform. It follows a modular structure for better scalability and maintainability.
+## What This Shows
 
-## 📦 Modules Used
+- Building AWS infrastructure with Terraform
+- Organizing infrastructure code into separate stacks
+- Breaking AWS resources into reusable modules
+- Passing outputs between VPC, security group, EC2, IAM, and RDS modules
+- Working with variables, outputs, provider versions, and local configuration files
+- Cleaning up early experiments into a more readable repository structure
 
-- **VPC**: Creates a VPC with two public subnets across different availability zones, an internet gateway, and a route table.
-- **Security Group**: Configures a security group to allow web traffic (HTTP/HTTPS).
-- **EC2**: Launches web and database EC2 instances with appropriate tags and startup scripts.
-- **RDS**: Provisions a MySQL RDS instance with a DB subnet group spanning two AZs.
-- **IAM**: Manages IAM policy/permissions for Terraform user access to RDS resources.
+## Repository Layout
 
-## 🔧 Prerequisites
-
-- Terraform installed
-- AWS CLI configured (`~/.aws/credentials`)
-- AWS IAM user with appropriate permissions
-- Public SSH key available locally
-
-## 🚀 How to Use
-
-1. Clone the repo  
-   `git clone https://github.com/yourusername/your-repo-name.git`
-
-2. Change into the project directory  
-   `cd your-repo-name`
-
-3. Initialize Terraform  
-   `terraform init`
-
-4. Review the execution plan  
-   `terraform plan`
-
-5. Apply the configuration  
-   `terraform apply`
-
-## 📤 Outputs
-
-After successful deployment, the following outputs are provided:
-- Web EC2 public IP
-- RDS endpoint
-- Subnet IDs
-- VPC ID
-- Security group ID
-- EC2 instance IDs
-
-## 📁 File Structure
-
+```text
+aws/
+  aws-foundation/
+  aws-terraform-web/
+  web-db-stack/
+  web-server/
 ```
 
-.
-├── main.tf
-├── variables.tf
-├── terraform.tfvars
-├── outputs.tf
-├── modules/
-│   ├── vpc/
-│   ├── ec2/
-│   ├── rds/
-│   ├── iam/
-│   └── sg/
-└── README.md
+### `aws/aws-foundation`
 
-````
+A broader AWS foundation example. It includes modules for networking, security groups, EC2, IAM, RDS, and load balancing.
 
-## 🧹 Clean Up
+### `aws/aws-terraform-web`
 
-To destroy all created resources:
+A modular web infrastructure example. This stack shows how smaller AWS modules can be wired together into a working environment.
+
+### `aws/web-db-stack`
+
+This folder contains the Terraform files that used to live at the repository root. It provisions a web/database style environment using local modules for VPC, security groups, EC2, IAM, and RDS.
+
+The root `.tf` files were moved here so the repository root stays clean and every runnable Terraform stack has its own home.
+
+### `aws/web-server`
+
+A smaller web server focused stack. This is a good place to start before reading through the larger examples.
+
+## Working With a Stack
+
+Run Terraform commands from the folder for the stack you want to inspect or test.
+
+```bash
+cd aws/web-db-stack
+terraform init
+terraform validate
+terraform plan
+```
+
+Apply only after reviewing the plan and confirming that the variables are set for your own AWS account.
+
+```bash
+terraform apply
+```
+
+Destroy resources when you are finished testing.
 
 ```bash
 terraform destroy
-````
+```
 
----
+## Variables and Local Values
 
-Feel free to customize this based on your actual repo name, folder layout, or any extra services you've added.
+Some examples include placeholder values in `terraform.tfvars`. Treat those files as local configuration examples, not production-ready secrets management.
 
-Want me to generate and save this as a file for you?
+Before running a stack, review values such as:
+
+- AWS region and availability zones
+- VPC and subnet CIDR ranges
+- AMI IDs
+- key pair names and public key paths
+- database names, usernames, and passwords
+- resource names and tags
+
+Do not commit real credentials, private keys, production passwords, or account-specific sensitive values.
+
+## What I Would Improve Next
+
+If I were turning this into a more production-like Terraform project, I would add:
+
+- Remote state storage with locking
+- Separate environment folders such as `dev`, `stage`, and `prod`
+- Stronger variable validation
+- More consistent naming and tagging conventions
+- CI checks for `terraform fmt`, `terraform validate`, and static analysis
+- Secret handling outside of committed variable files
+- Clearer module versioning and documentation
+
+Those are intentionally not all solved here. This repo is the starting point, and the next Terraform project can show the more mature version of the same ideas.
+
+## Requirements
+
+- Terraform installed locally
+- AWS CLI configured or another supported AWS credential source
+- AWS permissions for the resources in the stack you are running
+- A careful review of the Terraform plan before applying changes
+
+## Notes
+
+This repository is for Terraform learning, portfolio work, and infrastructure practice. The examples are intentionally small enough to read without a lot of ceremony, while still showing the shape of real infrastructure code.
+
+Each stack should be treated independently unless a README inside that stack says otherwise.
